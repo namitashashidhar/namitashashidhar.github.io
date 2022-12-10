@@ -18,7 +18,7 @@ header {
   min-height: 100vh;
   font-weight: bold;
   display: flex; 
-  background-image: url('../images/coding.webp');
+  background-image: url('../images/CS.webp');
   background-size: cover;
   background-position: center center;
 }
@@ -102,14 +102,6 @@ font-family: 'Lato', sans-serif;
 .recipe {
   box-shadow: 0 1px 1px 0 #283618;
   width: 100%;
-}
-
-.a {
-
-}
-
-.c {
-
 }
 
 .time {
