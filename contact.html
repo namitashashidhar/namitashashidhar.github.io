@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Namita</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #faf9f6;
+            color: #1a1a1a;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
+            padding: 4rem 1.5rem;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            max-width: 950px;
+            width: 100%;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .form-side {
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+        }
+
+        h1 {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 3rem;
+            font-weight: 600;
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .box-input {
+            font-family: inherit;
+            font-size: 1rem;
+            color: #1a1a1a;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            outline: none;
+            width: 100%;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+        .box-input:focus {
+            border-color: #1a1a1a;
+            background-color: #ffffff;
+        }
+
+        textarea.box-input {
+            resize: vertical;
+            min-height: 150px;
+            line-height: 1.5;
+        }
+
+        .status-side {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1.2s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+            animation-delay: 0.2s;
+            width: 100%;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.01);
+        }
+
+        .card-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #8a8a8a;
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+        }
+
+        .card-value {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #2ec4b6;
+            border-radius: 50%;
+            animation: pulse-glow 2s infinite ease-in-out;
+        }
+
+        .btn-submit {
+            align-self: flex-start;
+            background-color: #1a1a1a;
+            color: #faf9f6;
+            border: none;
+            padding: 0.8rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, background-color 0.2s;
+            margin-top: 0.5rem;
+            width: auto;
+        }
+
+        .btn-submit:hover {
+            background-color: #404040;
+            transform: translateY(-2px);
+        }
+
+        .back-home {
+            margin-top: 2rem;
+            color: #8a8a8a;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            display: inline-block;
+        }
+
+        .back-home:hover {
+            color: #1a1a1a;
+        }
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.35;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .shape1 {
+            width: 300px;
+            height: 300px;
+            background: #ffe3ec;
+            top: -10%;
+            right: 10%;
+        }
+
+        .shape2 {
+            width: 400px;
+            height: 400px;
+            background: #e3edff;
+            bottom: -10%;
+            left: 10%;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                display: block;
+                padding: 3rem 1.5rem;
+            }
+
+            .container {
+                display: flex;
+                flex-direction: column;
+                gap: 3rem;
+            }
+
+            h1 {
+                font-size: 2.4rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin-bottom: 0rem;
+            }
+
+            .status-side {
+                order: initial;
+            }
+
+            .btn-submit {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                box-shadow: 0 0 0 0 rgba(46, 196, 182, 0.5);
+            }
+
+            70% {
+                box-shadow: 0 0 0 8px rgba(46, 196, 182, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(46, 196, 182, 0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="floating-shape shape1"></div>
+    <div class="floating-shape shape2"></div>
+
+    <main class="container">
+
+        <section class="form-side">
+            <h1>say hello.</h1>
+
+            <form action="https://formspree.io/f/your-id-here" method="POST">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="formName">Your Name</label>
+                        <input type="text" id="formName" name="name" class="box-input"
+                            placeholder="What should I call you?" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="formEmail">Email Address</label>
+                        <input type="email" id="formEmail" name="email" class="box-input"
+                            placeholder="Where can I write back?" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="formMessage">Your Message</label>
+                    <textarea id="formMessage" name="message" class="box-input"
+                        placeholder="Write your message out here..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">send note!</button>
+            </form>
+
+            <div>
+                <a href="index.html" class="back-home">← back to puzzle</a>
+            </div>
+        </section>
+
+        <aside class="status-side">
+            <div class="card">
+                <div class="card-title">Availability</div>
+                <div class="status-indicator">
+                    <div class="pulse-dot"></div>
+                    <span class="card-value">Open to new projects</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Current Base</div>
+                <div class="card-value">New York City 🍕</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Local Time</div>
+                <div class="card-value" id="localTime">00:00 AM EST</div>
+            </div>
+        </aside>
+
+    </main>
+
+    <script>
+        function updateClock() {
+            const options = {
+                timeZone: 'America/New_York',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            };
+            const formatter = new Intl.DateTimeFormat('en-US', options);
+            document.getElementById('localTime').innerText = formatter.format(new Date()) + ' EST';
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+
+</html>

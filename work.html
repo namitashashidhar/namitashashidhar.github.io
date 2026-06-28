@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work History | Namita Shashidhar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #faf9f6;
+            color: #1a1a1a;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            padding: 5rem 2rem 3rem 2rem;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 720px;
+            width: 100%;
+            margin: 0 auto;
+            z-index: 10;
+        }
+
+
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+        }
+
+        .back-home {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            color: #1a1a1a;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            transition: color 0.2s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+
+        .back-home:hover {
+            color: #707070;
+            transform: translateX(-3px);
+        }
+
+
+        .page-title {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 2.8rem;
+            font-weight: 600;
+            font-style: italic;
+            margin-bottom: 3.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+            animation-delay: 0.15s;
+        }
+
+
+        .timeline-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            margin-bottom: 5rem;
+        }
+
+
+        .job-card {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 12px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+        }
+
+
+        .current-post-card {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.02);
+            animation-delay: 0.3s;
+        }
+
+
+        .card-1 {
+            animation-delay: 0.4s;
+        }
+
+        .card-2 {
+            animation-delay: 0.45s;
+        }
+
+        .card-3 {
+            animation-delay: 0.5s;
+        }
+
+        .card-4 {
+            animation-delay: 0.55s;
+        }
+
+        .card-5 {
+            animation-delay: 0.6s;
+        }
+
+
+        .pos-label {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #d32f2f;
+            margin-bottom: 0.6rem;
+            font-weight: 700;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .job-title {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .company-name {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #4a4a4a;
+        }
+
+        .job-meta {
+            display: flex;
+            justify-content: space-between;
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 0.85rem;
+            color: #656565;
+            margin-bottom: 1.25rem;
+            font-weight: 500;
+        }
+
+
+        .job-bullets {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .job-bullets li {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #333333;
+            position: relative;
+            padding-left: 1.2rem;
+            font-weight: 500;
+        }
+
+        .job-bullets li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #a0a0a0;
+        }
+
+
+        .footer-nav {
+            display: flex;
+            gap: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+            animation-delay: 0.7s;
+        }
+
+        .footer-nav a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: transform 0.2s ease, color 0.2s ease;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 3rem 1.5rem 2rem 1.5rem;
+            }
+
+            .page-title {
+                font-size: 2.3rem;
+                margin-bottom: 2rem;
+            }
+
+            .job-title {
+                font-size: 1.35rem;
+            }
+
+            .job-card {
+                padding: 1.5rem;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.25;
+            z-index: 1;
+        }
+
+        .shape1 {
+            width: 400px;
+            height: 400px;
+            background: #e3edff;
+            top: -10%;
+            right: -10%;
+        }
+
+        .shape2 {
+            width: 350px;
+            height: 350px;
+            background: #ffe3ec;
+            bottom: 10%;
+            left: -10%;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="floating-shape shape1"></div>
+    <div class="floating-shape shape2"></div>
+
+    <div class="container">
+
+        <nav class="nav-header">
+            <a href="index.html" class="back-home">← back to home</a>
+        </nav>
+
+
+        <h1 class="page-title">Work</h1>
+
+
+        <div class="timeline-container">
+
+            <!-- CURRENT POST -->
+            <div class="job-card current-post-card">
+                <div class="pos-label">Current Post</div>
+                <div class="job-header">
+                    <h2 class="job-title">TDI Graduate Analyst</h2>
+                    <span class="company-name">Deutsche Bank</span>
+                </div>
+                <div class="job-meta">
+                    <span>New York City, NY</span>
+                    <span>Feb. 2025 – Present</span>
+                </div>
+                <ul class="job-bullets">
+                    <li>Supported D2C’s Repo Desk by resolving SL3 production issues and service tickets</li>
+                    <li>Created a Gainshare Report for Muni’s TOB Desk and resolved issues on Muni’s MLM Team</li>
+                    <li>Supported KYC workflows and client onboarding processes on Client Lifecycle Management</li>
+                </ul>
+            </div>
+
+            <!-- CO-OP INTERN -->
+            <div class="job-card card-1">
+                <div class="job-header">
+                    <h2 class="job-title">Co-Op Intern</h2>
+                    <span class="company-name">Commonwealth Cyber Initiative (CCI)</span>
+                </div>
+                <div class="job-meta">
+                    <span>Remote</span>
+                    <span>Aug. 2024 – Dec. 2024</span>
+                </div>
+                <ul class="job-bullets">
+                    <li>Created a repository of CTF challenges under the guidance of CACI Cyber Missions Operation Team
+                        for various CTF events during the year</li>
+                </ul>
+            </div>
+
+            <!-- IB SUMMER ANALYST -->
+            <div class="job-card card-2">
+                <div class="job-header">
+                    <h2 class="job-title">IB Summer Analyst</h2>
+                    <span class="company-name">Deutsche Bank</span>
+                </div>
+                <div class="job-meta">
+                    <span>New York City, NY</span>
+                    <span>Jun. 2024 – Aug. 2024</span>
+                </div>
+                <ul class="job-bullets">
+                    <li>Employed ML, LLM, and NLP models as part of the Compliance ML team to automate the detection of
+                        malicious trades, generating alerts for the FIC and FX divisions</li>
+                    <li>Developed backend logic using GCP for a device that emails caregivers if their loved one leaves
+                        the house/encounters an unknown person. Represented NYC globally after winning Deutsche Bank’s
+                        Hackathon for Dementia</li>
+                </ul>
+            </div>
+
+            <!-- UNDERGRADUATE TA / RA -->
+            <div class="job-card card-3">
+                <div class="job-header">
+                    <h2 class="job-title">Undergraduate Teaching / Research Assistant</h2>
+                    <span class="company-name">Virginia Tech</span>
+                </div>
+                <div class="job-meta">
+                    <span>Blacksburg, VA</span>
+                    <span>May 2023 – May 2024</span>
+                </div>
+                <ul class="job-bullets">
+                    <li>Provided assistance during office hours for CS 3114 and CS 1944 in Fall 2023, and for CS 4604 in
+                        Spring 2024</li>
+                    <li>Assisted with the setup of CS 3114 in Summer 2023, including code writing, testing, and
+                        documentation</li>
+                    <li>Created wireframes and conducted research in Summer 2023 to adapt the physical game, Rush Hour,
+                        into a digital format, aimed at helping special learners better understand complex problems</li>
+                </ul>
+            </div>
+
+            <!-- AI DEV OPS INTERN -->
+            <div class="job-card card-4">
+                <div class="job-header">
+                    <h2 class="job-title">AI Dev Ops Intern</h2>
+                    <span class="company-name">Collins Aerospace</span>
+                </div>
+                <div class="job-meta">
+                    <span>Remote</span>
+                    <span>May 2023 – Aug. 2023</span>
+                </div>
+                <ul class="job-bullets">
+                    <li>Operated within an Agile and CI/CD environment to develop and deploy ~3 pipelines in Jenkins and
+                        AWS</li>
+                </ul>
+            </div>
+
+            <!-- CODE COACH -->
+            <div class="job-card card-5">
+                <div class="job-header">
+                    <h2 class="job-title">Code Coach</h2>
+                    <span class="company-name">theCoderSchool</span>
+                </div>
+                <div class="job-meta">
+                    <span>Sterling, VA</span>
+                    <span>Jun. 2020 – Jan. 2024</span>
+                </div>
+                <ul class="job-bullets">
+                    <li>Created lesson plans and games to teach ~30 kids coding in Java, Python, and Scratch</li>
+                </ul>
+            </div>
+
+        </div>
+
+
+        <footer class="footer-nav">
+            <a href="Namita_Resume.pdf" class="interactive-link" target="_blank" download="Namita_Resume.pdf">Resume</a>
+            <a href="https://github.com/namitashashidhar" class="interactive-link" target="_blank">GitHub</a>
+            <a href="contact.html" class="interactive-link">Contact Me</a>
+        </footer>
+    </div>
+
+    <script>
+
+        const links = document.querySelectorAll('.interactive-link');
+        links.forEach(link => {
+            link.addEventListener('mousemove', (e) => {
+                const { offsetWidth: width, offsetHeight: height } = link;
+                const { offsetX: x, offsetY: y } = e;
+                const moveX = (x / width - 0.5) * 12;
+                const moveY = (y / height - 0.5) * 12;
+                link.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                link.style.color = '#8a8a8a';
+            });
+            link.addEventListener('mouseleave', () => {
+                link.style.transform = 'translate(0px, 0px)';
+                link.style.color = '#1a1a1a';
+            });
+        });
+    </script>
+</body>
+
+</html>

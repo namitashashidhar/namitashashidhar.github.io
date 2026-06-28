@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Namita Shashidhar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #faf9f6;
+            color: #1a1a1a;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            padding: 5rem 2rem 3rem 2rem;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 720px;
+            width: 100%;
+            margin: 0 auto;
+            z-index: 10;
+        }
+
+
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+        }
+
+        .back-home {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            color: #1a1a1a;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            transition: color 0.2s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+
+        .back-home:hover {
+            color: #707070;
+            transform: translateX(-3px);
+        }
+
+
+        .page-title {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 2.8rem;
+            font-weight: 600;
+            font-style: italic;
+            margin-bottom: 3.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+            animation-delay: 0.15s;
+        }
+
+
+        .projects-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            margin-bottom: 5rem;
+        }
+
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 12px;
+            padding: 2.2rem;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        @media (min-width: 769px) {
+            .project-card:hover {
+                background: #ffffff;
+                border: 1px solid rgba(0, 0, 0, 0.08);
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.02);
+            }
+        }
+
+
+        .card-1 {
+            animation-delay: 0.3s;
+        }
+
+        .card-2 {
+            animation-delay: 0.4s;
+        }
+
+        .card-3 {
+            animation-delay: 0.5s;
+        }
+
+
+        .project-tag {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #d32f2f;
+            margin-bottom: 0.6rem;
+            font-weight: 700;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .project-title {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .project-description {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 0.98rem;
+            line-height: 1.6;
+            color: #333333;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-pill {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 0.75rem;
+            background: rgba(0, 0, 0, 0.04);
+            color: #555555;
+            padding: 0.3rem 0.75rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+
+        .project-link {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            width: fit-content;
+            transition: color 0.2s ease;
+        }
+
+        .project-link:hover {
+            color: #d32f2f;
+        }
+
+
+        .footer-nav {
+            display: flex;
+            gap: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+            animation-delay: 0.65s;
+        }
+
+        .footer-nav a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: transform 0.2s ease, color 0.2s ease;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+
+        @media (max-width: 768px) {
+            body {
+                padding: 3rem 1.5rem 2rem 1.5rem;
+            }
+
+            .page-title {
+                font-size: 2.3rem;
+                margin-bottom: 2rem;
+            }
+
+            .project-title {
+                font-size: 1.4rem;
+            }
+
+            .project-card {
+                padding: 1.5rem;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.25;
+            z-index: 1;
+        }
+
+        .shape1 {
+            width: 400px;
+            height: 400px;
+            background: #e3edff;
+            top: -10%;
+            right: -10%;
+        }
+
+        .shape2 {
+            width: 350px;
+            height: 350px;
+            background: #ffe3ec;
+            bottom: 10%;
+            left: -10%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="floating-shape shape1"></div>
+    <div class="floating-shape shape2"></div>
+
+    <div class="container">
+        <nav class="nav-header">
+            <a href="index.html" class="back-home">← back to home</a>
+        </nav>
+
+        <h1 class="page-title">Projects</h1>
+
+        <div class="projects-container">
+
+            <div class="project-card card-1">
+                <div class="project-tag">DB Hackathon Winner</div>
+                <div class="project-header">
+                    <h2 class="project-title">Financial Inclusion</h2>
+                </div>
+                <p class="project-description">
+                    <!-- Developed backend cloud systems for an assistive safety device that maps geolocation anchors, utilizing face-recognition to alert care networks when vulnerable individuals interact with unknown environments or wander beyond bounds. Winner of Deutsche Bank's Hackathon for Dementia. -->
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-pill">GCP</span>
+                    <span class="tech-pill">IoT Core</span>
+                    <span class="tech-pill">Python</span>
+                    <span class="tech-pill">Node.js</span>
+                </div>
+                <a href="https://github.com/namitashashidhar" target="_blank" class="project-link">View Repository ↗</a>
+            </div>
+
+            <!-- PROJECT 2: CYBER CTF REPOSITORY
+            <div class="project-card card-2">
+                <div class="project-tag">Cybersecurity Infrastructure</div>
+                <div class="project-header">
+                    <h2 class="project-title">CCI Capture The Flag (CTF) Repository</h2>
+                </div>
+                <p class="project-description">
+                    Engineered and documented a sprawling repository of complex gamified cyber defense challenges, designed in partnership with the CACI Cyber Missions Operation Team to run vulnerability tests across regional security summits.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-pill">Docker</span>
+                    <span class="tech-pill">Linux</span>
+                    <span class="tech-pill">Bash</span>
+                    <span class="tech-pill">Network Security</span>
+                </div>
+                <a href="https://github.com/namitashashidhar" target="_blank" class="project-link">View Repository ↗</a>
+            </div>
+
+            <!-- PROJECT 3: ACCESSIBLE DIGITAL RESEARCH -->
+            <div class="project-card card-3">
+                <div class="project-tag">Accessible UX Research</div>
+                <div class="project-header">
+                    <h2 class="project-title">Digital Rush Hour Engine</h2>
+                </div>
+                <p class="project-description">
+                    Conducted wireframe prototyping and structural UX logic conversion to transform the tactile spatial
+                    puzzle "Rush Hour" into an accessible, high-contrast interactive digital program designed to
+                    evaluate problem-solving strategies for special learners.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-pill">Figma</span>
+                    <span class="tech-pill">JavaScript</span>
+                    <span class="tech-pill">CSS Canvas</span>
+                    <span class="tech-pill">Accessibility UI</span>
+                </div>
+                <a href="https://github.com/namitashashidhar" target="_blank" class="project-link">View Repository ↗</a>
+            </div>
+
+        </div>
+
+        <footer class="footer-nav">
+            <a href="Namita_Resume.pdf" class="interactive-link" target="_blank" download="Namita_Resume.pdf">Resume</a>
+            <a href="https://github.com/namitashashidhar" class="interactive-link" target="_blank">GitHub</a>
+            <a href="contact.html" class="interactive-link">Contact Me</a>
+        </footer>
+    </div>
+
+    <script>
+        const links = document.querySelectorAll('.interactive-link');
+        links.forEach(link => {
+            link.addEventListener('mousemove', (e) => {
+                const { offsetWidth: width, offsetHeight: height } = link;
+                const { offsetX: x, offsetY: y } = e;
+                const moveX = (x / width - 0.5) * 12;
+                const moveY = (y / height - 0.5) * 12;
+                link.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                link.style.color = '#8a8a8a';
+            });
+            link.addEventListener('mouseleave', () => {
+                link.style.transform = 'translate(0px, 0px)';
+                link.style.color = '#1a1a1a';
+            });
+        });
+    </script>
+</body>
+
+</html>

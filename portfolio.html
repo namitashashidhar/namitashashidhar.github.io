@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio — Namita Shashidhar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #faf9f6;
+            color: #1a1a1a;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            min-height: 100vh;
+            padding: 6rem 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .nav-header {
+            max-width: 800px;
+            margin: 0 auto 4rem auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        .back-btn {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            opacity: 0.6;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-3px);
+            opacity: 1;
+        }
+
+        .page-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: #8a8a8a;
+        }
+
+
+        .portfolio-list {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+            position: relative;
+        }
+
+        .article-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 60px;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s ease, padding-left 0.2s ease;
+        }
+
+        .article-row.featured {
+            border-bottom-color: rgba(211, 47, 47, 0.2);
+        }
+
+        .article-row.featured .article-title {
+            color: #d32f2f;
+            font-weight: 700;
+            background: none;
+            -webkit-text-fill-color: initial;
+        }
+
+        .article-row.featured .byline {
+            color: #d32f2f;
+            font-weight: 600;
+        }
+
+        .article-row.featured .date {
+            color: #d32f2f;
+            font-weight: 600;
+        }
+
+        @media (min-width: 769px) {
+            .article-row:hover {
+                padding-left: 0.5rem;
+                background: linear-gradient(90deg, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0) 100%);
+            }
+
+            .article-row:hover .article-title {
+                color: #000000;
+            }
+
+            .article-row.featured:hover .article-title {
+                color: #d32f2f;
+            }
+
+            .article-row:hover .date {
+                color: #1a1a1a;
+            }
+
+            .article-row.featured:hover .date {
+                color: #d32f2f;
+            }
+        }
+
+        .article-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            color: #2c2c2c;
+            padding-right: 2rem;
+            transition: color 0.2s ease;
+        }
+
+        .byline {
+            font-size: 0.9rem;
+            color: #707070;
+            font-weight: 400;
+        }
+
+        .date {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            transition: color 0.2s ease;
+        }
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.2;
+            z-index: 1;
+        }
+
+        .shape1 {
+            width: 400px;
+            height: 400px;
+            background: #e3edff;
+            top: -10%;
+            right: -10%;
+            animation: floatAround 25s infinite alternate ease-in-out;
+        }
+
+        .shape2 {
+            width: 350px;
+            height: 350px;
+            background: #ffe3ec;
+            bottom: -5%;
+            left: -5%;
+            animation: floatAround 30s infinite alternate-reverse ease-in-out;
+        }
+
+        @keyframes floatAround {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            50% {
+                transform: translate(30px, 30px) rotate(180deg);
+            }
+
+            100% {
+                transform: translate(-15px, 15px) rotate(360deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 3rem 1.5rem;
+            }
+
+            .nav-header {
+                margin-bottom: 2rem;
+            }
+
+            .article-row {
+                grid-template-columns: 1fr;
+                gap: 0.4rem;
+                padding: 1.25rem 0;
+            }
+
+            .date {
+                text-align: left;
+                font-size: 0.8rem;
+            }
+
+            .byline {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="floating-shape shape1"></div>
+    <div class="floating-shape shape2"></div>
+
+    <header class="nav-header">
+        <a href="index.html" class="back-btn">← index</a>
+        <h1 class="page-title">crossword publications.</h1>
+    </header>
+
+    <main class="portfolio-list">
+
+        <a href="#" class="article-row featured">
+            <h2 class="article-title">Slate Themeless</h2>
+            <span class="byline">Slate</span>
+            <span class="date">12/—</span>
+        </a>
+
+        <a href="#" class="article-row">
+            <h2 class="article-title">If the Shoe Fits</h2>
+            <span class="byline">Apple News+</span>
+            <span class="date">TBD</span>
+        </a>
+
+        <a href="#" class="article-row">
+            <h2 class="article-title">Thirst Traps</h2>
+            <span class="byline">Apple News+</span>
+            <span class="date">7/17</span>
+        </a>
+
+        <a href="#" class="article-row">
+            <h2 class="article-title">Skip Intro</h2>
+            <span class="byline">Universal</span>
+            <span class="date">6/4</span>
+        </a>
+
+        <a href="#" class="article-row">
+            <h2 class="article-title">Triple J</h2>
+            <span class="byline">Apple News+</span>
+            <span class="date">5/13</span>
+        </a>
+
+        <a href="#" class="article-row">
+            <h2 class="article-title">Greetings From The Future</h2>
+            <span class="byline">Apple News+</span>
+            <span class="date">3/13</span>
+        </a>
+
+    </main>
+
+</body>
+
+</html>
