@@ -42,10 +42,12 @@
             z-index: 10;
         }
 
+        /* Wraps the board and the footer hint underneath */
         .image-side {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            gap: 1rem;
             width: 100%;
             opacity: 0;
             animation: fadeInUp 1.2s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
@@ -92,6 +94,36 @@
             background-color: transparent;
             background-image: none;
             cursor: default;
+        }
+
+        /* Clean typography hint aligned below the puzzle grid */
+        .fix-hint-container {
+            height: 1.5rem; /* Reserves space to prevent structural shifting when hidden */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fix-indicator {
+            font-family: "Syne", sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: rgba(0, 0, 0, 0.2); 
+            text-transform: lowercase;
+            letter-spacing: -0.01em;
+            cursor: pointer;
+            transition: color 0.2s ease, transform 0.2s ease, opacity 0.3s ease;
+            user-select: none;
+        }
+
+        .fix-indicator:hover {
+            color: #d32f2f;
+            transform: translateY(-1px);
+        }
+
+        .fix-indicator.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
 
         .puzzle-board.solved {
@@ -353,6 +385,10 @@
     <main class="container">
         <div class="image-side">
             <div class="puzzle-board" id="board"></div>
+            <!-- Placed below the puzzle board container -->
+            <div class="fix-hint-container">
+                <span class="fix-indicator" id="fixLink">hmm...need some help?</span>
+            </div>
         </div>
 
         <div class="text-side">
@@ -390,18 +426,33 @@
         const correctOrder = [0, 1, 2, 3];
         const board = document.getElementById('board');
         const portfolioWrapper = document.getElementById('portfolioWrapper');
+        const fixLink = document.getElementById('fixLink');
         let gameSolved = false;
+
+        // Click trigger for our sleek under-puzzle option
+        fixLink.addEventListener('click', () => {
+            if (!gameSolved) {
+                solvePuzzleInstantly();
+            }
+        });
 
         function renderPuzzle() {
             board.innerHTML = '';
             currentOrder.forEach((tileId, index) => {
                 const tile = document.createElement('div');
                 tile.className = `puzzle-tile tile-${tileId}`;
+
                 if (!gameSolved) {
                     tile.addEventListener('click', () => moveTile(index));
                 }
                 board.appendChild(tile);
             });
+        }
+
+        function solvePuzzleInstantly() {
+            currentOrder = [...correctOrder];
+            renderPuzzle();
+            checkWin();
         }
 
         function moveTile(clickedIndex) {
@@ -418,6 +469,8 @@
             if (currentOrder.every((val, i) => val === correctOrder[i])) {
                 gameSolved = true;
                 board.classList.add('solved');
+                fixLink.classList.add('hidden'); // Beautifully fades out the helper label on completion
+                
                 setTimeout(() => {
                     const blankTile = document.querySelector('.tile-3');
                     if (blankTile) {
