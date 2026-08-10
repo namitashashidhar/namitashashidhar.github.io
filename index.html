@@ -11,500 +11,575 @@
         href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
         rel="stylesheet">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
+    body {
+        background-color: #faf9f6;
+        color: #1a1a1a;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow-x: hidden;
+        overflow-y: auto;
+        position: relative;
+        padding: 2rem 1.5rem;
+    }
+
+    .container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        max-width: 900px;
+        width: 100%;
+        align-items: center;
+        z-index: 10;
+    }
+
+    /* Wraps the board and the footer hint underneath */
+    .image-side {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+        opacity: 0;
+        animation: fadeInUp 1.2s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+        animation-delay: 0.2s;
+    }
+
+    .puzzle-board {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 2px;
+        width: 100%;
+        max-width: 380px;
+        aspect-ratio: 1 / 1;
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+        transition: gap 0.5s ease;
+    }
+
+    .puzzle-tile {
+        width: 100%;
+        height: 100%;
+        background-image: url('photo.jpg');
+        background-size: 200% auto;
+        cursor: pointer;
+        transition: transform 0.2s ease-out;
+    }
+
+    .tile-0 {
+        background-position: 0% 20%;
+    }
+
+    .tile-1 {
+        background-position: 100% 20%;
+    }
+
+    .tile-2 {
+        background-position: 0% 80%;
+    }
+
+    .tile-3 {
+        background-color: transparent;
+        background-image: none;
+        cursor: default;
+    }
+
+    .fix-hint-container {
+        height: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .fix-indicator {
+        font-family: "Syne", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: rgba(0, 0, 0, 0.2);
+        text-transform: lowercase;
+        letter-spacing: -0.01em;
+        cursor: pointer;
+        transition: color 0.2s ease, transform 0.2s ease, opacity 0.3s ease;
+        user-select: none;
+    }
+
+    .fix-indicator:hover {
+        color: #d32f2f;
+        transform: translateY(-1px);
+    }
+
+    .fix-indicator.hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .puzzle-board.solved {
+        gap: 0px;
+    }
+
+    .puzzle-board.solved .puzzle-tile {
+        cursor: default;
+    }
+
+    .text-side {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .name-tag {
+        font-family: "Syne", sans-serif;
+        font-size: 3.2rem;
+        font-weight: 800;
+        text-transform: lowercase;
+        color: #1a1a1a;
+        letter-spacing: -0.04em;
+        margin-bottom: 1.2rem;
+        opacity: 0;
+        line-height: 1.0;
+        animation: fadeInUp 1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+        animation-delay: 0.3s;
+    }
+
+    .intro p.bio {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 1.35rem;
+        font-weight: 600;
+        line-height: 1.5;
+        letter-spacing: -0.02em;
+        color: #2d2d2d;
+        margin-bottom: 2rem;
+        opacity: 0;
+        animation: fadeInUp 1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+        animation-delay: 0.5s;
+    }
+
+    .highlight {
+        color: #d32f2f;
+        font-weight: 700;
+    }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .main-btn-group {
+        display: flex;
+        gap: 0.75rem;
+        width: 100%;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 0.6rem 1.2rem;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border-radius: 6px;
+        letter-spacing: -0.02em;
+        transition: background-color 0.2s, transform 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    .secondary-btn {
+        background-color: transparent;
+        color: #1a1a1a;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        opacity: 0;
+        flex: 1;
+        text-align: center;
+        animation: fadeInUp 1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+    }
+
+    .work-btn {
+        animation-delay: 0.7s;
+    }
+
+    .projects-btn {
+        animation-delay: 0.75s;
+    }
+
+    .secondary-btn:hover {
+        background-color: rgba(0, 0, 0, 0.03);
+        border-color: #1a1a1a;
+        transform: translateY(-1px);
+    }
+
+    .portfolio-lock {
+        opacity: 0;
+        transform: translateY(10px);
+        pointer-events: none;
+        transition: opacity 0.8s ease, transform 0.8s ease;
+        width: 100%;
+    }
+
+    .portfolio-btn {
+        background-color: #1a1a1a;
+        color: #faf9f6;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        text-align: center;
+        width: 100%;
+    }
+
+    .portfolio-btn:hover {
+        background-color: #404040;
+        transform: translateY(-1px);
+    }
+
+    .portfolio-lock.unlocked {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    .links {
+        display: flex;
+        gap: 1.5rem;
+        opacity: 0;
+        animation: fadeInUp 1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+        animation-delay: 0.8s;
+    }
+
+    .links a {
+        color: #1a1a1a;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: transform 0.2s ease, color 0.2s ease;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    /* Copyright */
+    .copyright {
+        position: fixed;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.8rem;
+        color: rgba(0, 0, 0, 0.5);
+        z-index: 20;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    @media (max-width: 768px) {
         body {
-            background-color: #faf9f6;
-            color: #1a1a1a;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            min-height: 100vh;
-            display: flex;
+            justify-content: flex-start;
             align-items: center;
-            justify-content: center;
-            overflow-x: hidden;
-            overflow-y: auto;
-            position: relative;
-            padding: 2rem 1.5rem;
+            padding: 3rem 1.5rem 1rem;
         }
 
         .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            max-width: 900px;
-            width: 100%;
-            align-items: center;
-            z-index: 10;
-        }
-
-        /* Wraps the board and the footer hint underneath */
-        .image-side {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            width: 100%;
-            opacity: 0;
-            animation: fadeInUp 1.2s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
-            animation-delay: 0.2s;
-        }
-
-        .puzzle-board {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 2px;
-            width: 100%;
-            max-width: 380px;
-            aspect-ratio: 1 / 1;
-            background: rgba(0, 0, 0, 0.05);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
-            transition: gap 0.5s ease;
-        }
-
-        .puzzle-tile {
-            width: 100%;
-            height: 100%;
-            background-image: url('photo.jpg');
-            background-size: 200% auto;
-            cursor: pointer;
-            transition: transform 0.2s ease-out;
-        }
-
-        .tile-0 {
-            background-position: 0% 20%;
-        }
-
-        .tile-1 {
-            background-position: 100% 20%;
-        }
-
-        .tile-2 {
-            background-position: 0% 80%;
-        }
-
-        .tile-3 {
-            background-color: transparent;
-            background-image: none;
-            cursor: default;
-        }
-
-        /* Clean typography hint aligned below the puzzle grid */
-        .fix-hint-container {
-            height: 1.5rem; /* Reserves space to prevent structural shifting when hidden */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .fix-indicator {
-            font-family: "Syne", sans-serif;
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: rgba(0, 0, 0, 0.2); 
-            text-transform: lowercase;
-            letter-spacing: -0.01em;
-            cursor: pointer;
-            transition: color 0.2s ease, transform 0.2s ease, opacity 0.3s ease;
-            user-select: none;
-        }
-
-        .fix-indicator:hover {
-            color: #d32f2f;
-            transform: translateY(-1px);
-        }
-
-        .fix-indicator.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .puzzle-board.solved {
-            gap: 0px;
-        }
-
-        .puzzle-board.solved .puzzle-tile {
-            cursor: default;
-        }
-
-        .text-side {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            width: 100%;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            text-align: center;
         }
 
         .name-tag {
-            font-family: "Syne", sans-serif;
-            font-size: 3.2rem;
-            font-weight: 800;
-            text-transform: lowercase;
-            color: #1a1a1a;
-            letter-spacing: -0.04em;
-            margin-bottom: 1.2rem;
-            opacity: 0;
-            line-height: 1.0;
-            animation: fadeInUp 1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
-            animation-delay: 0.3s;
+            font-size: 2.6rem;
         }
 
         .intro p.bio {
-            font-family: "Plus Jakarta Sans", sans-serif;
-            font-size: 1.35rem;
-            font-weight: 600;
-            line-height: 1.5;
-            letter-spacing: -0.02em;
-            color: #2d2d2d;
-            margin-bottom: 2rem;
-            opacity: 0;
-            animation: fadeInUp 1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
-            animation-delay: 0.5s;
-        }
-
-        .highlight {
-            color: #d32f2f;
-            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
         }
 
         .action-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            align-items: flex-start;
-            width: 100%;
+            align-items: center;
         }
 
         .main-btn-group {
-            display: flex;
-            gap: 0.75rem;
-            width: 100%;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 0.6rem 1.2rem;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            border-radius: 6px;
-            letter-spacing: -0.02em;
-            transition: background-color 0.2s, transform 0.2s, border-color 0.2s, color 0.2s;
-        }
-
-        .secondary-btn {
-            background-color: transparent;
-            color: #1a1a1a;
-            border: 1px solid rgba(0, 0, 0, 0.15);
-            opacity: 0;
-            flex: 1;
-            text-align: center;
-            animation: fadeInUp 1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
-        }
-
-        .work-btn {
-            animation-delay: 0.7s;
-        }
-
-        .projects-btn {
-            animation-delay: 0.75s;
-        }
-
-        .secondary-btn:hover {
-            background-color: rgba(0, 0, 0, 0.03);
-            border-color: #1a1a1a;
-            transform: translateY(-1px);
-        }
-
-        .portfolio-lock {
-            opacity: 0;
-            transform: translateY(10px);
-            pointer-events: none;
-            transition: opacity 0.8s ease, transform 0.8s ease;
-            width: 100%;
-        }
-
-        .portfolio-btn {
-            background-color: #1a1a1a;
-            color: #faf9f6;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            width: 100%;
-        }
-
-        .portfolio-btn:hover {
-            background-color: #404040;
-            transform: translateY(-1px);
-        }
-
-        .portfolio-lock.unlocked {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
+            justify-content: center;
         }
 
         .links {
-            display: flex;
-            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .puzzle-board {
+            max-width: 280px;
+        }
+
+        .copyright {
+            position: static;
+            transform: none;
+            margin-top: 2.5rem;
+            padding-bottom: 1rem;
+            width: 100%;
+            white-space: normal;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .name-tag {
+            font-size: 2.2rem;
+        }
+
+        .main-btn-group {
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+            align-items: center;
+        }
+
+        .secondary-btn {
+            width: 100%;
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
             opacity: 0;
-            animation: fadeInUp 1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
-            animation-delay: 0.8s;
+            transform: translateY(20px);
         }
 
-        .links a {
-            color: #1a1a1a;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: transform 0.2s ease, color 0.2s ease;
-            display: inline-block;
-            cursor: pointer;
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .floating-shape {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(60px);
+        opacity: 0.35;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .shape1 {
+        width: 350px;
+        height: 350px;
+        background: #e3edff;
+        top: 5%;
+        left: 5%;
+        animation: floatAround 25s infinite alternate ease-in-out;
+    }
+
+    .shape2 {
+        width: 400px;
+        height: 400px;
+        background: #ffe3ec;
+        bottom: 5%;
+        right: 5%;
+        animation: floatAround 30s infinite alternate-reverse ease-in-out;
+    }
+
+    @keyframes floatAround {
+        0% {
+            transform: translate(0, 0) rotate(0deg);
         }
 
-        @media (max-width: 768px) {
-            body {
-                align-items: flex-start;
-            }
-
-            .container {
-                grid-template-columns: 1fr;
-                gap: 2.5rem;
-                text-align: center;
-            }
-
-            .name-tag {
-                font-size: 2.6rem;
-            }
-
-            .intro p.bio {
-                font-size: 1.2rem;
-                margin-bottom: 1.5rem;
-            }
-
-            .action-buttons {
-                align-items: center;
-            }
-
-            .main-btn-group {
-                justify-content: center;
-            }
-
-            .links {
-                justify-content: center;
-            }
-
-            .puzzle-board {
-                max-width: 280px;
-            }
+        50% {
+            transform: translate(80px, 60px) rotate(180deg);
         }
 
-        @media (max-width: 400px) {
-            .name-tag {
-                font-size: 2.2rem;
-            }
-
-            .main-btn-group {
-                flex-direction: column;
-                gap: 0.75rem;
-                width: 100%;
-                align-items: center;
-            }
-
-            .secondary-btn {
-                width: 100%;
-            }
+        100% {
+            transform: translate(-40px, 40px) rotate(360deg);
         }
+    }
+</style>
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
+<div class="floating-shape shape1"></div>
+<div class="floating-shape shape2"></div>
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+<main class="container">
+    <div class="image-side">
+        <div class="puzzle-board" id="board"></div>
 
-        .floating-shape {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.35;
-            z-index: 1;
-            pointer-events: none;
-        }
+        <div class="fix-hint-container">
+            <span class="fix-indicator" id="fixLink">hmm...need some help?</span>
+        </div>
+    </div>
 
-        .shape1 {
-            width: 350px;
-            height: 350px;
-            background: #e3edff;
-            top: 5%;
-            left: 5%;
-            animation: floatAround 25s infinite alternate ease-in-out;
-        }
+    <div class="text-side">
+        <header>
+            <div class="name-tag">namita shashidhar</div>
+        </header>
 
-        .shape2 {
-            width: 400px;
-            height: 400px;
-            background: #ffe3ec;
-            bottom: 5%;
-            right: 5%;
-            animation: floatAround 30s infinite alternate-reverse ease-in-out;
-        }
+        <section class="intro">
+            <p class="bio">
+                Hi, I am a software engineer and puzzle enthusiast! I also love
+                traveling, movies, and exploring new restaurants in
+                <span class="highlight">NYC!</span>
+            </p>
+        </section>
 
-        @keyframes floatAround {
-            0% {
-                transform: translate(0, 0) rotate(0deg);
-            }
+        <div class="action-buttons">
+            <div class="main-btn-group">
+                <a href="work.html" class="btn secondary-btn work-btn">
+                    View Work →
+                </a>
 
-            50% {
-                transform: translate(80px, 60px) rotate(180deg);
-            }
+                <a href="projects.html" class="btn secondary-btn projects-btn">
+                    View Projects →
+                </a>
+            </div>
 
-            100% {
-                transform: translate(-40px, 40px) rotate(360deg);
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-    <div class="floating-shape shape1"></div>
-    <div class="floating-shape shape2"></div>
-
-    <main class="container">
-        <div class="image-side">
-            <div class="puzzle-board" id="board"></div>
-            <!-- Placed below the puzzle board container -->
-            <div class="fix-hint-container">
-                <span class="fix-indicator" id="fixLink">hmm...need some help?</span>
+            <div class="portfolio-lock" id="portfolioWrapper">
+                <a href="portfolio.html" class="btn portfolio-btn">
+                    View Bylines →
+                </a>
             </div>
         </div>
 
-        <div class="text-side">
-            <header>
-                <div class="name-tag">namita shashidhar</div>
-            </header>
+        <footer class="links">
+            <a href="Namita_Resume.pdf"
+                class="interactive-link"
+                target="_blank"
+                download="Namita_Resume.pdf">
+                Resume
+            </a>
 
-            <section class="intro">
-                <p class="bio">Hi, I am a software engineer and puzzle enthusiast! I also love traveling, movies, and exploring new
-                    restaurants in <span class="highlight">NYC!</span></p>
-            </section>
+            <a href="https://github.com/namitashashidhar"
+                class="interactive-link"
+                target="_blank">
+                GitHub
+            </a>
 
-            <div class="action-buttons">
-                <div class="main-btn-group">
-                    <a href="work.html" class="btn secondary-btn work-btn">View Work →</a>
-                    <a href="projects.html" class="btn secondary-btn projects-btn">View Projects →</a>
-                </div>
+            <a href="contact.html" class="interactive-link">
+                Contact Me
+            </a>
+        </footer>
+    </div>
+</main>
 
-                <div class="portfolio-lock" id="portfolioWrapper">
-                    <a href="portfolio.html" class="btn portfolio-btn">View Bylines →</a>
-                </div>
-            </div>
+<footer class="copyright">
+    © 2026 Namita Shashidhar. All rights reserved.
+</footer>
 
-            <footer class="links">
-                <a href="Namita_Resume.pdf" class="interactive-link" target="_blank"
-                    download="Namita_Resume.pdf">Resume</a>
-                <a href="https://github.com/namitashashidhar" class="interactive-link" target="_blank">GitHub</a>
-                <a href="contact.html" class="interactive-link">Contact Me</a>
-            </footer>
-        </div>
-    </main>
+<script>
+    let currentOrder = [2, 0, 1, 3];
+    const correctOrder = [0, 1, 2, 3];
 
-    <script>
-        let currentOrder = [2, 0, 1, 3];
-        const correctOrder = [0, 1, 2, 3];
-        const board = document.getElementById('board');
-        const portfolioWrapper = document.getElementById('portfolioWrapper');
-        const fixLink = document.getElementById('fixLink');
-        let gameSolved = false;
+    const board = document.getElementById('board');
+    const portfolioWrapper = document.getElementById('portfolioWrapper');
+    const fixLink = document.getElementById('fixLink');
 
-        // Click trigger for our sleek under-puzzle option
-        fixLink.addEventListener('click', () => {
+    let gameSolved = false;
+
+    fixLink.addEventListener('click', () => {
+        if (!gameSolved) {
+            solvePuzzleInstantly();
+        }
+    });
+
+    function renderPuzzle() {
+        board.innerHTML = '';
+
+        currentOrder.forEach((tileId, index) => {
+            const tile = document.createElement('div');
+            tile.className = `puzzle-tile tile-${tileId}`;
+
             if (!gameSolved) {
-                solvePuzzleInstantly();
+                tile.addEventListener('click', () => moveTile(index));
             }
+
+            board.appendChild(tile);
         });
+    }
 
-        function renderPuzzle() {
-            board.innerHTML = '';
-            currentOrder.forEach((tileId, index) => {
-                const tile = document.createElement('div');
-                tile.className = `puzzle-tile tile-${tileId}`;
+    function solvePuzzleInstantly() {
+        currentOrder = [...correctOrder];
+        renderPuzzle();
+        checkWin();
+    }
 
-                if (!gameSolved) {
-                    tile.addEventListener('click', () => moveTile(index));
-                }
-                board.appendChild(tile);
-            });
-        }
+    function moveTile(clickedIndex) {
+        const blankIndex = currentOrder.indexOf(3);
 
-        function solvePuzzleInstantly() {
-            currentOrder = [...correctOrder];
+        const validMoves = {
+            0: [1, 2],
+            1: [0, 3],
+            2: [0, 3],
+            3: [1, 2]
+        };
+
+        if (validMoves[clickedIndex].includes(blankIndex)) {
+            [
+                currentOrder[clickedIndex],
+                currentOrder[blankIndex]
+            ] = [
+                currentOrder[blankIndex],
+                currentOrder[clickedIndex]
+            ];
+
             renderPuzzle();
             checkWin();
         }
+    }
 
-        function moveTile(clickedIndex) {
-            const blankIndex = currentOrder.indexOf(3);
-            const validMoves = { 0: [1, 2], 1: [0, 3], 2: [0, 3], 3: [1, 2] };
-            if (validMoves[clickedIndex].includes(blankIndex)) {
-                [currentOrder[clickedIndex], currentOrder[blankIndex]] = [currentOrder[blankIndex], currentOrder[clickedIndex]];
-                renderPuzzle();
-                checkWin();
-            }
+    function checkWin() {
+        if (currentOrder.every((val, i) => val === correctOrder[i])) {
+            gameSolved = true;
+
+            board.classList.add('solved');
+
+            fixLink.classList.add('hidden');
+
+            setTimeout(() => {
+                const blankTile = document.querySelector('.tile-3');
+
+                if (blankTile) {
+                    blankTile.style.backgroundImage = "url('photo.jpg')";
+                    blankTile.style.backgroundPosition = "100% 80%";
+                }
+            }, 200);
+
+            setTimeout(() => {
+                portfolioWrapper.classList.add('unlocked');
+            }, 500);
         }
+    }
 
-        function checkWin() {
-            if (currentOrder.every((val, i) => val === correctOrder[i])) {
-                gameSolved = true;
-                board.classList.add('solved');
-                fixLink.classList.add('hidden'); // Beautifully fades out the helper label on completion
-                
-                setTimeout(() => {
-                    const blankTile = document.querySelector('.tile-3');
-                    if (blankTile) {
-                        blankTile.style.backgroundImage = "url('photo.jpg')";
-                        blankTile.style.backgroundPosition = "100% 80%";
-                    }
-                }, 200);
-                setTimeout(() => { portfolioWrapper.classList.add('unlocked'); }, 500);
-            }
-        }
+    renderPuzzle();
 
-        renderPuzzle();
+    const links = document.querySelectorAll('.interactive-link');
 
-        const links = document.querySelectorAll('.interactive-link');
-        links.forEach(link => {
-            link.addEventListener('mousemove', (e) => {
-                const { offsetWidth: width, offsetHeight: height } = link;
-                const { offsetX: x, offsetY: y } = e;
-                const moveX = (x / width - 0.5) * 12;
-                const moveY = (y / height - 0.5) * 12;
-                link.style.transform = `translate(${moveX}px, ${moveY}px)`;
-                link.style.color = '#8a8a8a';
-            });
-            link.addEventListener('mouseleave', () => {
-                link.style.transform = 'translate(0px, 0px)';
-                link.style.color = '#1a1a1a';
-            });
+    links.forEach(link => {
+        link.addEventListener('mousemove', (e) => {
+            const {
+                offsetWidth: width,
+                offsetHeight: height
+            } = link;
+
+            const {
+                offsetX: x,
+                offsetY: y
+            } = e;
+
+            const moveX = (x / width - 0.5) * 12;
+            const moveY = (y / height - 0.5) * 12;
+
+            link.style.transform =
+                `translate(${moveX}px, ${moveY}px)`;
+
+            link.style.color = '#8a8a8a';
         });
-    </script>
 
-    <footer style="position:fixed;bottom:16px;left:50%;transform:translateX(-50%);font-size:0.8rem;color:rgba(0,0,0,.5);z-index:20;">
-        © 2026 Namita Shashidhar. All rights reserved.
-    </footer>
-
-</body>
-
-</html>
+        link.addEventListener('mouseleave', () => {
+            link.style.transform = 'translate(0px, 0px)';
+            link.style.color = '#1a1a1a';
+        });
+    });
+</script>
