@@ -53,7 +53,8 @@
             color: #8a8a8a;
         }
 
-        .portfolio-list {
+        .portfolio-list,
+        .puzzle-list {
             max-width: 800px;
             margin: 0 auto;
             display: flex;
@@ -140,6 +141,15 @@
             transition: color 0.2s ease;
         }
 
+        .section-label {
+            max-width: 800px;
+            margin: 4rem auto 0.5rem auto;
+            font-size: 0.85rem;
+            color: #8a8a8a;
+            text-transform: lowercase;
+            letter-spacing: 0.04em;
+        }
+
         .floating-shape {
             position: absolute;
             border-radius: 50%;
@@ -203,6 +213,10 @@
             .byline {
                 font-size: 0.85rem;
             }
+
+            .section-label {
+                margin-top: 3rem;
+            }
         }
     </style>
 </head>
@@ -217,7 +231,6 @@
         <h1 class="page-title">bylines.</h1>
     </header>
 
-    <!-- Added description -->
     <p style="
         max-width: 800px;
         margin: 0 auto 2.5rem auto;
@@ -225,39 +238,58 @@
         color: #4a4a4a;
         line-height: 1.6;
     ">
-        After my 9–5, I love constructing crossword puzzles. I've been published in Apple News+, Universal, and actively sending my puzzles to more!
+        After my 9–5 I love constructing crossword puzzles. I've been published in Apple News+, Universal, and actively sending my puzzles to more!
     </p>
 
     <main class="portfolio-list">
 
         <a href="#" class="article-row featured">
-            <h2 class="article-title">"if the shoe fits," with will nediger</h2>
-            <span class="byline">Apple News+</span>
+            <h2 class="article-title">"if the shoe fits" with will nediger</h2>
+            <span class="byline">apple news+</span>
             <span class="date">9/18</span>
         </a>
 
         <a href="#" class="article-row">
-            <h2 class="article-title">"thirst traps," with will nediger</h2>
-            <span class="byline">Apple News+</span>
+            <h2 class="article-title">"thirst traps" with will nediger</h2>
+            <span class="byline">apple news+</span>
             <span class="date">7/17</span>
         </a>
 
         <a href="#" class="article-row">
-            <h2 class="article-title">"limited series," with bharati hemmady</h2>
-            <span class="byline">Universal</span>
+            <h2 class="article-title">"limited series" with bharati hemmady</h2>
+            <span class="byline">universal</span>
             <span class="date">6/4</span>
         </a>
 
         <a href="#" class="article-row">
-            <h2 class="article-title">"triple j," with will nediger</h2>
-            <span class="byline">Apple News+</span>
+            <h2 class="article-title">"triple j" with will nediger</h2>
+            <span class="byline">apple news+</span>
             <span class="date">5/13</span>
         </a>
 
         <a href="#" class="article-row">
-            <h2 class="article-title">"greetings from the future," with will nediger</h2>
-            <span class="byline">Apple News+</span>
+            <h2 class="article-title">"greetings from the future" with will nediger</h2>
+            <span class="byline">apple news+</span>
             <span class="date">3/13</span>
+        </a>
+
+    </main>
+
+    <p class="section-label">
+        puzzle related
+    </p>
+
+    <main class="puzzle-list">
+
+        <a href="#" class="article-row">
+            <h2 class="article-title">mini 5x</h2>
+            <span class="byline">ponder club</span>
+            <span class="date">8/20</span>
+        </a>
+        <a href="#" class="article-row">
+            <h2 class="article-title">mini 5x</h2>
+            <span class="byline">ponder club</span>
+            <span class="date">8/19</span>
         </a>
 
     </main>
